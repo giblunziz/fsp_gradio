@@ -1,0 +1,50 @@
+{
+  "namespace": "com.adeo.fit.exchange.external.hearthbeat.v1",
+  "type": "record",
+  "name": "FspHeartBeat",
+  "doc": "Message HeartBeat entre deux systèmes techniques",
+  "fields": [
+    {
+      "name": "reference",
+      "doc": "Identifiant UUID de la demande, devra être retourné par l'autre système",
+      "type": "string"
+    },
+    {
+      "name": "tsSender",
+      "doc": "Timestamp UTC du système appelant",
+      "type": {
+        "type": "long",
+        "logicalType": "timestamp-millis"
+      }
+    },
+    {
+      "name": "response",
+      "type": [
+        "null",
+        {
+          "name": "FspHeartBeatResponse",
+          "doc": "Message de réponse à compléter et à retourner par le consomateur du message",
+          "namespace": "com.adeo.fit.exchange.external.hearthbeat.v1",
+          "type": "record",
+          "fields": [
+            {
+              "name": "tsConsumer",
+              "doc": "Timestamp UTC du système destinataire",
+              "type":
+              {
+                "type": "long",
+                "logicalType": "timestamp-millis"
+              }
+            },
+            {
+              "name": "version",
+              "doc": "Numéro de version du système distant",
+              "type": "string"
+            }
+          ]
+        }
+      ],
+      "default": null
+    }
+  ]
+}

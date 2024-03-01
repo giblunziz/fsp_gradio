@@ -1,0 +1,4 @@
+gradio==4.19.2
+avro==1.11.3
+fastavro==1.9.4
+confluent-kafka==2.3.0

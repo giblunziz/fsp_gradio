@@ -1,0 +1,7 @@
+Consumer started
+adeo-dev-europe-west1-APP-FIT-AKS-AS-FR-P3-C3-HEARTBEAT-V1 : {'reference': '4915a319-caa3-4da1-89af-5ae74cf20667', 'tsSender': datetime.datetime(2024, 3, 1, 16, 19, 27, 523000, tzinfo=datetime.timezone.utc), 'response': None}
+adeo-dev-europe-west1-APP-FIT-AKS-AS-FR-P3-C3-HEARTBEAT-V1 : {'reference': 'c01867a0-d40c-414e-838d-057e6cddaf38', 'tsSender': datetime.datetime(2024, 3, 1, 16, 19, 27, 524000, tzinfo=datetime.timezone.utc), 'response': None}
+adeo-dev-europe-west1-APP-FIT-AKS-AS-FR-P3-C3-HEARTBEAT-V1 : {'reference': '4794cd3f-5822-43ae-b830-4d2c92181dfe', 'tsSender': datetime.datetime(2024, 3, 1, 16, 19, 27, 524000, tzinfo=datetime.timezone.utc), 'response': None}
+adeo-dev-europe-west1-APP-FIT-AKS-AS-FR-P3-C3-HEARTBEAT-V1 : {'reference': '72b4f12a-9c49-433f-9899-eb1c2996d7cb', 'tsSender': datetime.datetime(2024, 3, 1, 16, 19, 27, 216000, tzinfo=datetime.timezone.utc), 'response': None}
+adeo-dev-europe-west1-APP-FIT-AKS-AS-FR-P3-C3-HEARTBEAT-V1 : {'reference': '3298be63-db65-49f6-8a4e-fa6385f8caf6', 'tsSender': datetime.datetime(2024, 3, 1, 16, 19, 27, 523000, tzinfo=datetime.timezone.utc), 'response': None}
+adeo-dev-europe-west1-APP-FIT-AKS-AS-FR-P3-C3-HEARTBEAT-V1 : {'reference': '39e8a509-783c-423b-a8e2-e9f836a1cffd', 'tsSender': datetime.datetime(2024, 3, 1, 16, 19, 27, 523000, tzinfo=datetime.timezone.utc), 'response': None}

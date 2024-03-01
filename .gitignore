@@ -1,0 +1,50 @@
+.DS_Store
+# Intellij
+.idea
+*.iml
+**/*-override.yml
+# Local .terraform folder
+**/.terraform/*
+k8s/terraform/.terraform/*
+k8s/terraform/adeo-staging-europe-west1/.terraform/*
+k8s/terraform/adeo-staging-europe-west1/.terraform/modules/modules.json
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+
+# Local Acl File
+adeo-*-acl.csv
+
+# Cert Files for k8s
+k8s/**/*.jks
+k8s/**/*.password
+k8s/**/*.pem
+k8s/**/*.pkcs12
+
+#.env files
+.env
+
+#Python venv  directory
+venv/
+
+#Python venv  directory
+venv/
+
+k8s/terraform/modules/dsp-api-config/gcr-service-account.json
+
+.classpath
+.factorypath
+.project
+org.eclipse.core.resources.prefs
+org.eclipse.jdt.apt.core.prefs
+org.eclipse.jdt.core.prefs
+/docs/Documentation/AsyncAPI/output/
+
+# some IDE related files
+.trunk
+
+# Project excludes
+auth.txt
+kafka_producer_config.json
