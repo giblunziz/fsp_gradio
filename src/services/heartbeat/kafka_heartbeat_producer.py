@@ -7,12 +7,12 @@ from threading import Thread
 from uuid import uuid4
 
 from confluent_kafka import Producer
-from confluent_kafka.schema_registry import SchemaRegistryClient
+from confluent_kafka.schema_registry import SchemaRegistryClient, topic_subject_name_strategy
 from confluent_kafka.schema_registry.avro import AvroSerializer
 from confluent_kafka.serialization import StringSerializer, SerializationContext, MessageField
 
 from constants import KAF_BOOTSTRAP, KAF_KEY_USER, KAF_KEY_PASS, HEARTBEAT_TOPIC, SR_URL, SR_USERNAME, SR_PASSWORD
-from services.heartbeat.kafka_consumer import Singleton
+from services import Singleton
 
 
 class KafkaHeartbeatProducer(metaclass=Singleton):
@@ -68,8 +68,8 @@ class KafkaHeartbeatProducer(metaclass=Singleton):
 
     def __get_serializer_config(self):
         return {
-            # 'auto.register.schemas': True,
-            # 'subject.name.strategy': topic_subject_name_strategy
+            'auto.register.schemas': True,
+            'subject.name.strategy': topic_subject_name_strategy
         }
 
     def __get_schema_registry_config(self):

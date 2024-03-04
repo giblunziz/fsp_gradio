@@ -1,0 +1,54 @@
+topic name: adeo-dev-europe-west1-INTERNAL-FIT-AKS-AS-FR-P3-C3-HEARTBEAT-V1
+      "id": "13020386-e81a-4e8c-8e66-0a0a8d1b45f3",
+      "name": "adeo-dev-europe-west1-INTERNAL-FIT-AKS-AS-FR-P3-C3-HEARTBEAT-V1",
+      "environment": "DEV",
+      "clusterInstance": "lkc-vk1gz",
+      "logicalTopicId": "6a64ac97-a795-4f85-bdc8-9a31d1a44574",
+
+{
+  "current": 1,
+  "last": 1,
+  "total": 1,
+  "topics": [
+    {
+      "id": "eee6127f-0589-4a3d-b35b-d795bc89fbed",
+      "name": "adeo-dev-europe-west1-EVENT-FIT-AS-FR-P3-C3-HEARTBEAT-V1",
+      "environment": "DEV",
+      "clusterInstance": "lkc-vk1gz",
+      "logicalTopicId": "316ada48-31fe-49ed-9d35-39f226f70f5d",
+      "config": [
+        {
+          "key": "cleanup.policy",
+          "value": "delete",
+          "source": "TOPIC"
+        },
+        {
+          "key": "delete.retention.ms",
+          "value": "86400000",
+          "source": "DEFAULT"
+        },
+        {
+          "key": "max.message.bytes",
+          "value": "2097164",
+          "source": "BROKER"
+        },
+        {
+          "key": "retention.bytes",
+          "value": "-1",
+          "source": "DEFAULT"
+        },
+        {
+          "key": "retention.ms",
+          "value": "604800000",
+          "source": "TOPIC"
+        }
+      ],
+      "replicationFactor": 3,
+      "partitions": 2,
+      "deleted": false,
+      "serializer": [],
+      "createdAt": "2024-03-04T13:45:13.804776Z",
+      "updatedAt": "2024-03-04T13:45:13.804776Z"
+    }
+  ]
+}
