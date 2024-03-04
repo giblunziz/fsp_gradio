@@ -14,6 +14,8 @@ from constants import HEARTBEAT_TOPIC, KAF_BOOTSTRAP, KAF_KEY_USER, KAF_KEY_PASS
     SR_PASSWORD
 from services import Singleton
 
+from src.constants import GROUP_ID_PREFIX
+
 
 class KafkaConsumer(metaclass=Singleton):
     __topics = []
@@ -21,7 +23,7 @@ class KafkaConsumer(metaclass=Singleton):
     __consumer = None
     __thread = None
 
-    def __init__(self):
+    def __init__(self, KT_HEARTBEAT_RESPONSE=None):
         # setup logger
         log_path = os.getenv('LOG_PATH')
         log_file_name_ = log_path + 'output.log'
@@ -37,6 +39,7 @@ class KafkaConsumer(metaclass=Singleton):
         # logging.basicConfig(filename=log_file_name_, level=logging.INFO)
 
         self.__topics.append(HEARTBEAT_TOPIC)
+        # self.__topics.append(KT_HEARTBEAT_RESPONSE)
         self._group_id = os.getenv("KAF_GROUPID")
 
         self.__schema_registry_client = SchemaRegistryClient(self.__get_schema_registry_conf())
@@ -75,7 +78,7 @@ class KafkaConsumer(metaclass=Singleton):
             "sasl.mechanism": "PLAIN",
             "sasl.username": KAF_KEY_USER,
             "sasl.password": KAF_KEY_PASS,
-            "group.id": SA_NAME + '-hb-consumer',
+            "group.id": GROUP_ID_PREFIX + '-hb-consumer',
         }
 
     def __get_schema_registry_conf(self):

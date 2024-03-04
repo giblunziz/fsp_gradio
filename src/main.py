@@ -1,4 +1,6 @@
 import datetime, os
+
+import gradio
 import gradio as gr
 
 from gui.gr_utilities import gr_utilities
@@ -28,5 +30,6 @@ if __name__ == '__main__':
                 logs = gr.Textbox(label="Logs", interactive=False, autoscroll=True, show_copy_button=True)
                 log_block.load(read_logs, None, logs, every=1)
 
+        gr.Warning("Started")
         return block
     gr_main().launch()

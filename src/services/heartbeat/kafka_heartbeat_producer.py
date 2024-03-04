@@ -2,6 +2,8 @@ import datetime
 import logging
 import os
 import socket
+import time
+from threading import Thread
 from uuid import uuid4
 
 from confluent_kafka import Producer
@@ -14,6 +16,8 @@ from services.heartbeat.kafka_consumer import Singleton
 
 
 class KafkaHeartbeatProducer(metaclass=Singleton):
+    __auto_mode = False
+    __thread = None
 
     def __init__(self):
 
@@ -73,6 +77,25 @@ class KafkaHeartbeatProducer(metaclass=Singleton):
             'url': SR_URL,
             'basic.auth.user.info': SR_USERNAME + ":" + SR_PASSWORD,
         }
+
+    def start_auto_mode(self, delay = 1):
+        if not self.__thread:
+            self.__auto_mode = True
+            self.__thread = Thread(target=self.__auto_launch, args=(delay*60,))
+            self.__thread.start()
+
+    def stop_auto_mode(self, delay):
+        if self.__thread:
+            self.__auto_mode = False
+            self.__thread.join()
+            self.__thread = None
+
+    def __auto_launch(self, delay):
+        self.__auto_mode = True
+        while self.__auto_mode:
+            time.sleep(delay)
+            self.send_data(1)
+
 
     def send_data(self, count=1):
 

@@ -1,0 +1,17 @@
+KAF_BOOTSTRAP= pkc-7yodp.europe-west1.gcp.confluent.cloud:9092
+
+KAF_KEY_PASS=hOnDolpdyG756ZnBYJqjPehz8BL+x08cg/bYlwsgYnMgG0Nx5xFcOHlqnp8Hdh9b
+KAF_KEY_USER=OHHKM6ZZDJEZXVQF
+
+SR_URL=https://schema-registry.adeo-dev-europe-west1.streaming.data.adeo.cloud
+SR_USERNAME=HI6T34TVI5GOOGKE
+SR_PASSWORD=Lau55zm9sbd6a8sy4b11yq6/HSfDjxAxvX3y6loXUn2yaAvKBNvxmlgNoRvPyYvT
+
+# KT_HEARTBEAT=adeo-dev-europe-west1-APP-FIT-AKS-AS-FR-P3-C3-HEARTBEAT-V1
+KT_HEARTBEAT         =adeo-dev-europe-west1-INTERNAL-FIT-AKS-AS-FR-P3-C3-HEARTBEAT-V1
+KT_HEARTBEAT_RESPONSE=adeo-dev-europe-west1-APP-FIT-AKS-AS-FR-P3-C3-HEARTBEAT-RESPONSE-V1
+KT_INVOICE_REQUEST_V1=adeo-dev-europe-west1-APP-FIT-ALL-ALL-P3-C3-INVOICE-REQUEST-V1
+
+SA_NAME=svc-fit-app
+
+LOG_PATH='../logs/'

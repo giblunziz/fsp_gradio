@@ -31,6 +31,7 @@ venv/
 
 #Python venv  directory
 venv/
+.venv
 
 k8s/terraform/modules/dsp-api-config/gcr-service-account.json
 
@@ -48,3 +49,4 @@ org.eclipse.jdt.core.prefs
 # Project excludes
 auth.txt
 kafka_producer_config.json
+logs/**/*

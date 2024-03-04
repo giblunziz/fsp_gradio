@@ -1,0 +1,1040 @@
+{
+  "type" : "record",
+  "name" : "InvoiceRequest",
+  "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1",
+  "fields" : [ {
+    "name" : "invoiceRequestDate",
+    "type" : {
+      "type" : "int",
+      "logicalType" : "date"
+    },
+    "doc" : "BT-? : Date of the Invoice Request"
+  }, {
+    "name" : "desiredInvoicingDate",
+    "type" : [ "null", {
+      "type" : "int",
+      "logicalType" : "date"
+    } ],
+    "doc" : "BT-? : Desired date of the invoice request",
+    "default" : null
+  }, {
+    "name" : "businessUnitCode",
+    "type" : "string",
+    "doc" : "BT-? : Business unit of the invoice request (lmfr, lmit, ...)"
+  }, {
+    "name" : "origin",
+    "type" : "string",
+    "doc" : "BT-? : Origin of the invoice request (bomp, flex, pegase, ...)"
+  }, {
+    "name" : "documentType",
+    "type" : "string",
+    "doc" : "BT-3 : Document Type of the Invoice Request"
+  }, {
+    "name" : "currencyCode",
+    "type" : "string",
+    "doc" : "BT-5 : Invoice request's currency code"
+  }, {
+    "name" : "buyerReference",
+    "type" : [ "null", "string" ],
+    "doc" : "BT-10 : Invoice request buyer reference",
+    "default" : null
+  }, {
+    "name" : "projectReference",
+    "type" : [ "null", "string" ],
+    "doc" : "BT-11 : Identification of the project to which the invoice refers",
+    "default" : null
+  }, {
+    "name" : "contractReference",
+    "type" : [ "null", "string" ],
+    "doc" : "BT-12 : Contract identifier",
+    "default" : null
+  }, {
+    "name" : "sellerOrderNumber",
+    "type" : [ "null", "string" ],
+    "doc" : "BT-13 : Number of the order at the origin of the invoice request in the system of the buyer. For goods only",
+    "default" : null
+  }, {
+    "name" : "sellerOrderDeliveryCarrierIdentifier",
+    "type" : [ "null", "string" ],
+    "doc" : "BT-16 : It is the carrier identifier that is used by the third party seller to delivery the products to the client. It allows to identify the carrier in the delivery process executed by the seller third party",
+    "default" : null
+  }, {
+    "name" : "goodsInformations",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "GoodsInformation",
+      "doc" : "Additionnal informations about goods invoices",
+      "fields" : [ {
+        "name" : "numberOfParcels",
+        "type" : [ "null", "int" ],
+        "doc" : "Total number of parcels"
+      }, {
+        "name" : "totalShippingWeight",
+        "type" : [ "null", "float" ],
+        "doc" : "Total shipping weight"
+      }, {
+        "name" : "totalNetShippingWeight",
+        "type" : [ "null", "float" ],
+        "doc" : "Total net shipping weight"
+      }, {
+        "name" : "totalShippingVolume",
+        "type" : [ "null", "float" ],
+        "doc" : "Total shipping volume"
+      }, {
+        "name" : "incotermCode",
+        "type" : [ "null", "string" ],
+        "doc" : "INCOTERM code"
+      }, {
+        "name" : "incotermPlace",
+        "type" : [ "null", "string" ],
+        "doc" : "INCOTERM place"
+      } ]
+    } ]
+  }, {
+    "name" : "identifier",
+    "type" : "string",
+    "doc" : "BT-18 : Identifier of the Invoicing Request. The Identifier of the Invoice Request can be given by the origin system or by the invoicing system."
+  }, {
+    "name" : "identifierSchema",
+    "type" : "string",
+    "doc" : "BT-18-1 : Schema Identifier"
+  }, {
+    "name" : "orderNumberFromBuyer",
+    "type" : [ "null", "string" ],
+    "doc" : "BT-14 : Order number of the Invoice request ",
+    "default" : null
+  }, {
+    "name" : "notes",
+    "type" : [ "null", {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "InvoiceRequestNote",
+        "doc" : "BG-1: Invoice request's notes",
+        "fields" : [ {
+          "name" : "noteSubject",
+          "type" : [ "null", "string" ],
+          "doc" : "BT-21 : Subject of the text note"
+        }, {
+          "name" : "noteComment",
+          "type" : "string",
+          "doc" : "BT-22 : Comment providing unstructured information about the Invoice as a whole"
+        } ]
+      }
+    } ],
+    "doc" : "BG-1 : Set of business terms providing text notes relevant to the invoice, along with an indicator specifying the subject of the note",
+    "default" : null
+  }, {
+    "name" : "previousInvoice",
+    "type" : [ "null", {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "InvoiceRequestPreviousInvoice",
+        "fields" : [ {
+          "name" : "referenceOfPreviousInvoice",
+          "type" : "string",
+          "doc" : "BT-25 : Identification of an Invoice previously sent by the Seller."
+        }, {
+          "name" : "issueDateOfPreviousInvoice",
+          "type" : [ "null", {
+            "type" : "int",
+            "logicalType" : "date"
+          } ],
+          "doc" : "BT-26 : Date the previous Invoice was issued"
+        }, {
+          "name" : "previousInvoiceType",
+          "type" : [ "null", "string" ],
+          "doc" : "EXT-FR-FE-02 : Code specifying the functional type of the previous Invoice"
+        } ]
+      }
+    } ],
+    "doc" : "BG-3 : Invoice previously sent by the Seller.",
+    "default" : null
+  }, {
+    "name" : "seller",
+    "type" : {
+      "type" : "record",
+      "name" : "InvoiceRequestSeller",
+      "fields" : [ {
+        "name" : "companyName",
+        "type" : [ "null", "string" ],
+        "doc" : "BT-27 : company name of seller",
+        "default" : null
+      }, {
+        "name" : "tradingName",
+        "type" : [ "null", "string" ],
+        "doc" : "BT-28 : trading name of seller",
+        "default" : null
+      }, {
+        "name" : "companySubdivision",
+        "type" : [ "null", {
+          "type" : "record",
+          "name" : "SellerCompanySubdivision",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.seller",
+          "fields" : [ {
+            "name" : "identifier",
+            "type" : "string",
+            "doc" : "BT-? : Identification of subdivision company"
+          }, {
+            "name" : "schemaIdentifier",
+            "type" : "string",
+            "doc" : "BT-? : Invoice Request's Schema Identifier of Invoicing Company Subdivision Identifier"
+          } ]
+        } ],
+        "default" : null
+      }, {
+        "name" : "identifier",
+        "type" : [ "null", {
+          "type" : "record",
+          "name" : "SellerIdentifier",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.seller",
+          "fields" : [ {
+            "name" : "identifier",
+            "type" : "string",
+            "doc" : "BT-? : Identification of seller"
+          }, {
+            "name" : "schemaIdentifier",
+            "type" : "string",
+            "doc" : "BT-? : Invoice Request's Schema Identifier of Invoicing seller Identifier"
+          } ]
+        } ],
+        "default" : null
+      }, {
+        "name" : "routing",
+        "type" : [ "null", {
+          "type" : "array",
+          "items" : {
+            "type" : "record",
+            "name" : "SellerRouting",
+            "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.seller",
+            "fields" : [ {
+              "name" : "routingCode",
+              "type" : "string",
+              "doc" : "BT-29c : Seller routing code"
+            }, {
+              "name" : "schemaIdentifier",
+              "type" : "string",
+              "doc" : "BT-29c-1 : Seller identifier schema. If no identifier schema is specified, it should be known to both the Buyer and the Seller."
+            } ]
+          }
+        } ],
+        "default" : null
+      }, {
+        "name" : "invoicingCompany",
+        "type" : {
+          "type" : "record",
+          "name" : "SellerInvoicingCompany",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.seller",
+          "fields" : [ {
+            "name" : "companyCode",
+            "type" : "string",
+            "doc" : "BT-? : Invoice Request's Invoicing Company Code"
+          }, {
+            "name" : "schemaIdentifier",
+            "type" : "string",
+            "doc" : "BT-? : Invoice Request's Schema Identifier of Invoicing Company Code"
+          } ]
+        }
+      }, {
+        "name" : "electronicalAddress",
+        "type" : [ "null", {
+          "type" : "record",
+          "name" : "SellerElectronicalAddress",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.seller",
+          "fields" : [ {
+            "name" : "addressCode",
+            "type" : "string",
+            "doc" : "BT-34 : "
+          }, {
+            "name" : "schemaIdentifier",
+            "type" : "string",
+            "doc" : "BT-34-1 : "
+          } ]
+        } ],
+        "default" : null
+      }, {
+        "name" : "sellerAddress",
+        "type" : {
+          "type" : "record",
+          "name" : "SellerAddress",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.seller",
+          "fields" : [ {
+            "name" : "addressLine1",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-35 : ",
+            "default" : null
+          }, {
+            "name" : "addressLine2",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-36 : ",
+            "default" : null
+          }, {
+            "name" : "addressLine3",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-162 : ",
+            "default" : null
+          }, {
+            "name" : "addressLocality",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-37 : ",
+            "default" : null
+          }, {
+            "name" : "addressPostalCode",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-38 : ",
+            "default" : null
+          }, {
+            "name" : "addressCountrySubdivision",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-39 : ",
+            "default" : null
+          }, {
+            "name" : "addressCountryCode",
+            "type" : "string",
+            "doc" : "BT-40 : "
+          } ]
+        },
+        "doc" : "BG-5 : Seller address"
+      }, {
+        "name" : "sellerContact",
+        "type" : [ "null", {
+          "type" : "record",
+          "name" : "SellerContact",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.seller",
+          "fields" : [ {
+            "name" : "sellerContactPoint",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-41 : ",
+            "default" : null
+          }, {
+            "name" : "sellerContactPhone",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-42 : ",
+            "default" : null
+          }, {
+            "name" : "sellerContactEmail",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-43 : ",
+            "default" : null
+          } ]
+        } ],
+        "doc" : "BG-6 : invoice request seller contact",
+        "default" : null
+      } ]
+    },
+    "doc" : "BG-4 : Invoice request's seller"
+  }, {
+    "name" : "buyer",
+    "type" : {
+      "type" : "record",
+      "name" : "InvoiceRequestBuyer",
+      "fields" : [ {
+        "name" : "invoicingCompany",
+        "type" : {
+          "type" : "record",
+          "name" : "BuyerInvoicingCompany",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.buyer",
+          "fields" : [ {
+            "name" : "companyCode",
+            "type" : "string",
+            "doc" : "BT-? : Invoice Request's Invoicing Company Code"
+          }, {
+            "name" : "schemaIdentifier",
+            "type" : "string",
+            "doc" : "BT-? : Invoice Request's Schema Identifier of Invoicing Company Code"
+          } ]
+        }
+      }, {
+        "name" : "buyerIdentifier",
+        "type" : [ "null", {
+          "type" : "array",
+          "items" : {
+            "type" : "record",
+            "name" : "BuyerIdentifier",
+            "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.buyer",
+            "fields" : [ {
+              "name" : "identifierCode",
+              "type" : "string",
+              "doc" : "BT-46c : Buyer routing code"
+            }, {
+              "name" : "schemaIdentifier",
+              "type" : "string",
+              "doc" : "BT-46c-1 : Buyer identifier schema. If no identifier schema is specified, it should be known to both the Buyer and the Seller."
+            } ]
+          }
+        } ],
+        "default" : null
+      }, {
+        "name" : "buyerCompany",
+        "type" : [ "null", {
+          "type" : "record",
+          "name" : "BuyerCompany",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.buyer",
+          "fields" : [ {
+            "name" : "identifier",
+            "type" : "string",
+            "doc" : "Buyer company code"
+          }, {
+            "name" : "schema",
+            "type" : "string",
+            "doc" : "Buyer company schema identifier (ISO6523, BASEGEN, CSUID, etc...)"
+          } ]
+        } ],
+        "default" : null
+      }, {
+        "name" : "buyerEstablishment",
+        "type" : [ "null", {
+          "type" : "record",
+          "name" : "BuyerEstablishment",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.buyer",
+          "fields" : [ {
+            "name" : "identifier",
+            "type" : "string",
+            "doc" : "Buyer establishment code"
+          }, {
+            "name" : "schema",
+            "type" : "string",
+            "doc" : "Buyer establishment schema identifier"
+          } ]
+        } ],
+        "default" : null
+      }, {
+        "name" : "routing",
+        "type" : [ "null", {
+          "type" : "record",
+          "name" : "BuyerRouting",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.buyer",
+          "fields" : [ {
+            "name" : "routingCode",
+            "type" : "string",
+            "doc" : "BT-49 : "
+          }, {
+            "name" : "schemaIdentifier",
+            "type" : "string",
+            "doc" : "BT-49-1 : "
+          } ]
+        } ],
+        "default" : null
+      }, {
+        "name" : "buyerAddress",
+        "type" : {
+          "type" : "record",
+          "name" : "BuyerAddress",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.buyer",
+          "fields" : [ {
+            "name" : "addressLine1",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-50 : ",
+            "default" : null
+          }, {
+            "name" : "addressLine2",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-51 : ",
+            "default" : null
+          }, {
+            "name" : "addressLine3",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-163 : ",
+            "default" : null
+          }, {
+            "name" : "addressLocality",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-52 : ",
+            "default" : null
+          }, {
+            "name" : "addressPostalCode",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-53 : ",
+            "default" : null
+          }, {
+            "name" : "addressCountrySubdivision",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-54 : ",
+            "default" : null
+          }, {
+            "name" : "addressCountryCode",
+            "type" : "string",
+            "doc" : "BT-55 : "
+          } ]
+        },
+        "doc" : "BG-8 : "
+      }, {
+        "name" : "buyerContact",
+        "type" : [ "null", {
+          "type" : "record",
+          "name" : "BuyerContact",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.buyer",
+          "fields" : [ {
+            "name" : "contactPoint",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-56 : ",
+            "default" : null
+          }, {
+            "name" : "contactPhone",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-57 : ",
+            "default" : null
+          }, {
+            "name" : "contactEmail",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-58 : ",
+            "default" : null
+          } ]
+        } ],
+        "doc" : "BG-9 : ",
+        "default" : null
+      } ]
+    },
+    "doc" : "BG-7 : invoice request buyer"
+  }, {
+    "name" : "delivery",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "Delivery",
+      "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.buyer",
+      "fields" : [ {
+        "name" : "deliveryPartyName",
+        "type" : [ "null", "string" ],
+        "doc" : "BT-70: Delivered to (name only, not ref)",
+        "default" : null
+      }, {
+        "name" : "deliveryLocationId",
+        "type" : [ "null", "string" ],
+        "doc" : "BT-71: Delivered to (identifier only)",
+        "default" : null
+      }, {
+        "name" : "deliveryPartySchema",
+        "type" : [ "null", "string" ],
+        "doc" : "BT-71-1: Delivered to (schema of identifier)",
+        "default" : null
+      }, {
+        "name" : "actualDeliveryDate",
+        "type" : [ "null", {
+          "type" : "int",
+          "logicalType" : "date"
+        } ],
+        "doc" : "BT-72: Effective date of delivery",
+        "default" : null
+      } ]
+    } ],
+    "doc" : "BG-13: Delivery informations",
+    "default" : null
+  }, {
+    "name" : "invoicePeriod",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "InvoicePeriod",
+      "doc" : "BG-14: Invoice period informations",
+      "fields" : [ {
+        "name" : "startDate",
+        "type" : [ "null", {
+          "type" : "int",
+          "logicalType" : "date"
+        } ],
+        "doc" : "BT-73: Start date of the invoicing period"
+      }, {
+        "name" : "endDate",
+        "type" : [ "null", {
+          "type" : "int",
+          "logicalType" : "date"
+        } ],
+        "doc" : "BT-74: End date of the invoicing period"
+      } ]
+    } ],
+    "doc" : "BG-14: Invoice period",
+    "default" : null
+  }, {
+    "name" : "lines",
+    "type" : {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "InvoiceRequestLine",
+        "fields" : [ {
+          "name" : "identifier",
+          "type" : "int",
+          "doc" : "BT-126 : Invoice request uniq identifier eg: line number"
+        }, {
+          "name" : "notes",
+          "type" : [ "null", {
+            "type" : "array",
+            "items" : {
+              "type" : "record",
+              "name" : "InvoiceRequestLineNote",
+              "doc" : "BT-127-00: Invoice request's notes",
+              "fields" : [ {
+                "name" : "noteSubject",
+                "type" : [ "null", "string" ],
+                "doc" : "EXT-FR-FE-183 : Subject of the text note"
+              }, {
+                "name" : "noteComment",
+                "type" : "string",
+                "doc" : "BT-127 : Comment providing unstructured information about the Invoice line"
+              } ]
+            }
+          } ],
+          "doc" : "BT-127-00 : Set of business terms providing text notes relevant to the invoice line, along with an indicator specifying the subject of the note",
+          "default" : null
+        }, {
+          "name" : "itemQuantity",
+          "type" : "int",
+          "doc" : "BT-129 : Quantity of the Invoice Request Line"
+        }, {
+          "name" : "itemUnit",
+          "type" : "string",
+          "doc" : "BT-130 : Unit of the Invoice Request Line Item"
+        }, {
+          "name" : "excludingTaxesAmount",
+          "type" : "double",
+          "doc" : "BT-131 : Amount excluding tax of the discount of the Invoice Line in the currency of the invoice"
+        }, {
+          "name" : "orderNumberFromBuyer",
+          "type" : [ "null", "string" ],
+          "doc" : "EXT-FR-FE-135 : ",
+          "default" : null
+        }, {
+          "name" : "orderLineReference",
+          "type" : [ "null", "string" ],
+          "doc" : "BT-132: Referenced purchase order line reference",
+          "default" : null
+        }, {
+          "name" : "accountingCost",
+          "type" : [ "null", "string" ],
+          "doc" : "BT-133: Invoice line buyer's accounting reference",
+          "default" : null
+        }, {
+          "name" : "analyticAxis2",
+          "type" : [ "null", "string" ],
+          "doc" : "Analytic axis level 3",
+          "default" : null
+        }, {
+          "name" : "analyticAxis3",
+          "type" : [ "null", "string" ],
+          "doc" : "Analytic axis level 3",
+          "default" : null
+        }, {
+          "name" : "shipmentDetail",
+          "type" : [ "null", {
+            "type" : "record",
+            "name" : "LineShipmentDetail",
+            "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.line",
+            "doc" : "",
+            "fields" : [ {
+              "name" : "identifier",
+              "type" : "string",
+              "doc" : "EXT-FR-FE-140: Shipping advice identifier"
+            }, {
+              "name" : "lineNumber",
+              "type" : [ "null", "string" ],
+              "doc" : "EXT-FR-FE-141: line number",
+              "default" : null
+            }, {
+              "name" : "lineShippingWeight",
+              "type" : [ "null", "float" ],
+              "doc" : "Line's shipping weight",
+              "default" : null
+            }, {
+              "name" : "lineNetShippingWeight",
+              "type" : [ "null", "float" ],
+              "doc" : "Line's net shipping weight",
+              "default" : null
+            }, {
+              "name" : "lineShippingVolume",
+              "type" : [ "null", "float" ],
+              "doc" : "Line's shipping volume"
+            } ]
+          } ],
+          "doc" : "EXT-FR-FE-BG-07: Shipment advice detail"
+        }, {
+          "name" : "lineInvoicingPeriod",
+          "type" : [ "null", {
+            "type" : "record",
+            "name" : "LineInvoicingPeriod",
+            "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.line",
+            "doc" : "BG-26: Line invoicing period",
+            "fields" : [ {
+              "name" : "startDate",
+              "type" : [ "null", {
+                "type" : "int",
+                "logicalType" : "date"
+              } ],
+              "doc" : "BT-134 - This date is the first day of the period."
+            }, {
+              "name" : "endDate",
+              "type" : [ "null", {
+                "type" : "int",
+                "logicalType" : "date"
+              } ],
+              "doc" : "BT-135 - This date is the first day of the period."
+            } ]
+          } ],
+          "doc" : "BG-26: Line invoicing period"
+        }, {
+          "name" : "discounts",
+          "type" : [ "null", {
+            "type" : "array",
+            "items" : {
+              "type" : "record",
+              "name" : "LineDiscount",
+              "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.line",
+              "fields" : [ {
+                "name" : "discountAmountExcludingTaxes",
+                "type" : [ "null", "double" ],
+                "doc" : "BT-136 : Amount excluding tax of the discount of the Invoice Line in the currency of the invoice",
+                "default" : null
+              }, {
+                "name" : "discountPercentage",
+                "type" : [ "null", "double" ],
+                "doc" : "BT-138 : Percentage that can be used in conjunction with the Basis of assessment of the discount applicable to the invoice line to calculate the Amount of the discount applicable to the invoice line.",
+                "default" : null
+              } ]
+            }
+          } ],
+          "doc" : "BG-27 : ",
+          "default" : null
+        }, {
+          "name" : "priceDetail",
+          "type" : {
+            "type" : "record",
+            "name" : "LinePriceDetail",
+            "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.line",
+            "fields" : [ {
+              "name" : "priceAmount",
+              "type" : "double",
+              "doc" : "BT-146 : Unit net Price of the item on the invoice line"
+            }, {
+              "name" : "allowanceChargeAmount",
+              "type" : "double",
+              "doc" : "BT-147 : Item price"
+            }, {
+              "name" : "allowanceChargeAmountBase",
+              "type" : "double",
+              "doc" : "BT-148 : Item base price"
+            }, {
+              "name" : "baseQuantity",
+              "type" : "string",
+              "doc" : "BT-149 : Item base quantity"
+            }, {
+              "name" : "baseUnitCode",
+              "type" : "string",
+              "doc" : "BT-149 : Item base quantity unit code (EN16931 codelists)"
+            } ]
+          },
+          "doc" : "BG-29 : "
+        }, {
+          "name" : "taxesInformation",
+          "type" : {
+            "type" : "record",
+            "name" : "LineTaxesInformation",
+            "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.line",
+            "fields" : [ {
+              "name" : "taxCode",
+              "type" : "string",
+              "doc" : "BT-151 : Code of the tax of the invoice line. A taxe code is associated to a tax rate."
+            }, {
+              "name" : "taxRate",
+              "type" : [ "null", "double" ],
+              "doc" : "BT-152 : Rate of the tax of the invoice line. A taxe rate is associated to a tax code.",
+              "default" : null
+            } ]
+          },
+          "doc" : "BG-30 : "
+        }, {
+          "name" : "itemInformation",
+          "type" : {
+            "type" : "record",
+            "name" : "LineItemInformation",
+            "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.line",
+            "fields" : [ {
+              "name" : "itemName",
+              "type" : [ "null", "string" ],
+              "doc" : "BT-153 : Item name of the Invoice Request Line",
+              "default" : null
+            }, {
+              "name" : "itemDescription",
+              "type" : [ "null", "string" ],
+              "doc" : "BT-154 : Item Description of the Invoice Request Line",
+              "default" : null
+            }, {
+              "name" : "itemSellerCode",
+              "type" : [ "null", "string" ],
+              "doc" : "BT-155 : Seller item Code for the Invoice Request Line. For goods or services.",
+              "default" : null
+            }, {
+              "name" : "itemCode",
+              "type" : [ "null", "string" ],
+              "doc" : "BT-157 : Standard item Code",
+              "default" : null
+            }, {
+              "name" : "itemSchema",
+              "type" : [ "null", "string" ],
+              "doc" : "BT-157-1 : Standard item schema",
+              "default" : null
+            }, {
+              "name" : "itemClassificationCode",
+              "type" : [ "null", "string" ],
+              "doc" : "BT-158 : Standard classification item Code",
+              "default" : null
+            }, {
+              "name" : "itemClassificationSchema",
+              "type" : [ "null", "string" ],
+              "doc" : "BT-158-1 : Standard classification item schema",
+              "default" : null
+            }, {
+              "name" : "originCountry",
+              "type" : [ "null", "string" ],
+              "doc" : "BT-159 : Origin country of the item",
+              "default" : null
+            } ]
+          },
+          "doc" : "BG-31 : "
+        } ]
+      }
+    },
+    "doc" : "BG-25 : invoice request's lines"
+  }, {
+    "name" : "deliveryInformation",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "InvoiceRequestDeliveryInformation",
+      "fields" : [ {
+        "name" : "effectiveDateOfDelivery",
+        "type" : "string",
+        "doc" : "BT-72 - Date the delivery is made."
+      } ]
+    } ],
+    "doc" : "BG-13 : Invoice request's delivery informations",
+    "default" : null
+  }, {
+    "name" : "invoicingPeriod",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "InvoiceRequestInvoicingPeriod",
+      "fields" : [ {
+        "name" : "startDate",
+        "type" : [ "null", {
+          "type" : "int",
+          "logicalType" : "date"
+        } ],
+        "doc" : "BT-73 - This date is the first day of the period."
+      }, {
+        "name" : "endDate",
+        "type" : [ "null", {
+          "type" : "int",
+          "logicalType" : "date"
+        } ],
+        "doc" : "BT-74 - This date is the first day of the period."
+      } ]
+    } ],
+    "doc" : "BG-14 : Invoice request's invoicing period",
+    "default" : null
+  }, {
+    "name" : "payment",
+    "type" : [ "null", {
+      "type" : "record",
+      "name" : "InvoiceRequestPayment",
+      "fields" : [ {
+        "name" : "methodTypeCode",
+        "type" : "string",
+        "doc" : "BT-81 - Code indicating the method by which a payment should be or has been made."
+      }, {
+        "name" : "methodDescription",
+        "type" : [ "null", "string" ],
+        "doc" : "BT-82 - Description indicating the method by which a payment should be or has been made."
+      }, {
+        "name" : "note",
+        "type" : [ "null", "string" ],
+        "doc" : "BT-83 - Value used to link the payment to the Invoice, issued by the Seller."
+      }, {
+        "name" : "bankTransfers",
+        "type" : [ "null", {
+          "type" : "array",
+          "items" : {
+            "type" : "record",
+            "name" : "PaymentBankTransfer",
+            "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.payment",
+            "fields" : [ {
+              "name" : "accountIdentifier",
+              "type" : "string",
+              "doc" : "BT-84 : Unique identifier of the bank account, on the books of a financial institution, to which payment should be made."
+            }, {
+              "name" : "accountName",
+              "type" : [ "null", "string" ],
+              "doc" : "BT-85 : Name of a bank account, on the books of a financial institution, to which payment should be made."
+            }, {
+              "name" : "serviceProviderIdentifier",
+              "type" : [ "null", "string" ],
+              "doc" : "BT-86 : Identifier of the financial institution in which a bank account is open."
+            } ]
+          }
+        } ],
+        "doc" : "BG-17 : invoice request's bank transfer",
+        "default" : null
+      }, {
+        "name" : "card",
+        "type" : [ "null", {
+          "type" : "record",
+          "name" : "PaymentCard",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.payment",
+          "fields" : [ {
+            "name" : "accountIdentifier",
+            "type" : "string",
+            "doc" : "BT-87 : Primary account number (PAN) of the card used for payment."
+          }, {
+            "name" : "accountName",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-88 : Payment card holder’s name"
+          } ]
+        } ],
+        "doc" : "BG-18 : invoice request's payment card account",
+        "default" : null
+      }, {
+        "name" : "directDebit",
+        "type" : [ "null", {
+          "type" : "record",
+          "name" : "PaymentDirectDebit",
+          "namespace" : "com.adeo.fit.exchange.external.invoicerequest.v1.payment",
+          "fields" : [ {
+            "name" : "referenceIdentifier",
+            "type" : "string",
+            "doc" : "BT-89 : Unique identifier assigned by the Beneficiary, used as a reference for the automatic direct debit mandate."
+          }, {
+            "name" : "creditorBankIdentifier",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-90 : Unique bank reference identifier of the Beneficiary or Seller, assigned by the Beneficiary’s or Seller’s bank."
+          }, {
+            "name" : "debitedAccountIdentifier",
+            "type" : [ "null", "string" ],
+            "doc" : "BT-91 : Account to be debited by direct debit."
+          } ]
+        } ],
+        "doc" : "BG-19 : invoice request's payment direct debit",
+        "default" : null
+      } ]
+    } ],
+    "doc" : "BG-16 : Invoice request's payment instructions",
+    "default" : null
+  }, {
+    "name" : "documentLevelDiscount",
+    "type" : [ "null", {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "InvoiceRequestDocumentLevelDiscount",
+        "fields" : [ {
+          "name" : "amount",
+          "type" : [ "null", "double" ],
+          "doc" : "BT-92 : Amount of a bottom-line discount, excluding VAT."
+        }, {
+          "name" : "baseAmount",
+          "type" : [ "null", "double" ],
+          "doc" : "BT-93 : Amount of a bottom-line discount, excluding VAT."
+        }, {
+          "name" : "percentage",
+          "type" : [ "null", "double" ],
+          "doc" : "BT-94 : Percentage that can be used in conjunction with the Basis of assessment of the document-level discount to calculate the Amount of the document-level discount."
+        }, {
+          "name" : "vatTypeCode",
+          "type" : "string",
+          "doc" : "BT-95 : Coded identification of the VAT type applicable to the document-level discount."
+        }, {
+          "name" : "vatRate",
+          "type" : [ "null", "double" ],
+          "doc" : "BT-96 : VAT rate, expressed as a percentage, applicable to the document-level discount."
+        }, {
+          "name" : "reason",
+          "type" : [ "null", "string" ],
+          "doc" : "BT-97 : Reason for the document-level discount, in text form."
+        }, {
+          "name" : "reasonCode",
+          "type" : [ "null", "string" ],
+          "doc" : "BT-98 : Reason for the document-level discount, in code form."
+        } ]
+      }
+    } ],
+    "doc" : "BG-20 : invoice request's document level discount",
+    "default" : null
+  }, {
+    "name" : "charges",
+    "type" : [ "null", {
+      "type" : "array",
+      "items" : {
+        "type" : "record",
+        "name" : "InvoiceRequestCharge",
+        "fields" : [ {
+          "name" : "amount",
+          "type" : "double",
+          "doc" : "BT-99 : Amount of charges and fees, excluding VAT."
+        }, {
+          "name" : "baseAmount",
+          "type" : [ "null", "double" ],
+          "doc" : "BT-100 : Base amount that can be used in conjunction with the Percentage document-level charges or fees to calculate the Amount of the document-level charges or fees."
+        }, {
+          "name" : "percentage",
+          "type" : [ "null", "double" ],
+          "doc" : "BT-101 : Percentage that can be used in conjunction with the Basis of assessment for document-level charges or fees to calculate the Amount of the document-level charges or fees."
+        }, {
+          "name" : "vatTypeCode",
+          "type" : "string",
+          "doc" : "BT-102 : Coded identification of the VAT type applicable to the document-level charges or fees."
+        }, {
+          "name" : "vatRate",
+          "type" : [ "null", "double" ],
+          "doc" : "BT-103 : VAT rate, expressed as a percentage, applicable to the document-level charges or fees."
+        }, {
+          "name" : "reason",
+          "type" : [ "null", "string" ],
+          "doc" : "BT-104 : Reason for the document-level charges or fees"
+        }, {
+          "name" : "reasonCode",
+          "type" : [ "null", "string" ],
+          "doc" : "BT-105 : Reason Code for the document-level charges or fees"
+        } ]
+      }
+    } ],
+    "doc" : "BG-21 : invoice request's charges",
+    "default" : null
+  }, {
+    "name" : "total",
+    "type" : {
+      "type" : "record",
+      "name" : "InvoiceRequestTotal",
+      "fields" : [ {
+        "name" : "netAmountOfInvoiceLines",
+        "type" : "double",
+        "doc" : "BT-106 : Sum of the net amount of all Invoice lines."
+      }, {
+        "name" : "discounts",
+        "type" : [ "null", "double" ],
+        "doc" : "BT-107 : Sum of all document-level discounts in the Invoice. Line-level discounts are included in the Net amount of the invoice line used in the Sum of the net amounts in the invoice lines.",
+        "default" : null
+      }, {
+        "name" : "chargesOrFees",
+        "type" : [ "null", "double" ],
+        "doc" : "BT-108 : Sum of all document-level charges or fees in the Invoice. Line-level fees are included in the Net amount of the invoice line used in the Sum of the net amounts in the invoice lines.",
+        "default" : null
+      }, {
+        "name" : "amountExcludingVat",
+        "type" : "double",
+        "doc" : "BT-109 : Total invoice amount, without the VAT. The Total invoice amount excluding VAT is the Sum of the net amounts in the invoice lines, minus the Sum of the document-level discounts, plus the Sum of the document-level charges or fees."
+      }, {
+        "name" : "vatAmount",
+        "type" : [ "null", "double" ],
+        "doc" : "BT-110 : Total VAT amount of the Invoice.  The Total invoice amount including VAT is the sum of all VAT amounts for the different types of VAT.",
+        "default" : null
+      }, {
+        "name" : "vatAmountInAccountingCurrency",
+        "type" : [ "null", "double" ],
+        "doc" : "BT-111 : Total VAT amount expressed in the accounting currency accepted or required in the Seller’s country.    Must be used when the VAT accounting currency differs from the invoice currency code. The VAT accounting currency is not used in the calculation of Invoice totals. ",
+        "default" : null
+      }, {
+        "name" : "amountIncludingVat",
+        "type" : [ "null", "double" ],
+        "doc" : "BT-112 : The Total invoice amount including VAT is the Total invoice amount excluding VAT plus the Total VAT amount. The Total invoice amount including VAT must be greater than or equal to zero.",
+        "default" : null
+      } ]
+    },
+    "doc" : "BG-22 : invoice request's total"
+  } ]
+}
