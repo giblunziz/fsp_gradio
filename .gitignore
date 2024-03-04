@@ -49,4 +49,5 @@ org.eclipse.jdt.core.prefs
 # Project excludes
 auth.txt
 kafka_producer_config.json
-logs/**/*
+logs/**/*.log
+
