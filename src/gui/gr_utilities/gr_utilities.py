@@ -1,19 +1,22 @@
 import time
 
-from constants import HEARTBEAT_TOPIC
 import gradio as gr
-from services.heartbeat.kafka_consumer import KafkaConsumer
-from services.heartbeat.kafka_heartbeat_producer import KafkaHeartbeatProducer
+
+from src.constants import HEARTBEAT_TOPIC
+from src.services import BackgroundConsumer
+from src.services.heartbeat.kafka_heartbeat_consumer import KafkaHeartbeatConsumer
+from src.services.heartbeat.kafka_heartbeat_producer import KafkaHeartbeatProducer
 
 
 def gr_build_utilities():
     print(f"Creating consumer with {HEARTBEAT_TOPIC} topics")
-    consumer = KafkaConsumer([HEARTBEAT_TOPIC], 'monitoring', 'Monitoring')
+    consumer = KafkaHeartbeatConsumer(HEARTBEAT_TOPIC, 'monitoring', 'Monitoring')
     producer = KafkaHeartbeatProducer()
 
     def update_state():
         __state = consumer.is_running()
-        return gr.update(variant='stop' if __state else 'primary', value='Stop consumer' if __state else 'Start consumer')
+        return gr.update(variant='stop' if __state else 'primary',
+                         value='Stop consumer' if __state else 'Start consumer')
 
     def start_stop_consumer():
         print(f"start_stop_consumer ask for state of consumer '{consumer.is_running()}'")

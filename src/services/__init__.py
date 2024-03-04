@@ -30,8 +30,8 @@ class Singleton(type):
 
 class BackgroundRunner(abc.ABC):
     __instance = None
-    __running = False
-    __thread = None
+    _running = False
+    _thread = None
     __name = 'no_name'
 
     def __new__(cls, *args, **kwargs):
@@ -40,26 +40,26 @@ class BackgroundRunner(abc.ABC):
         return cls.__instance
 
     def __init__(self, name):
-        self.__running = False
+        self._running = False
         self.__name = name
         print(f"BackgroundRunner({self.__name}) initialized")
 
     def is_running(self):
-        return self.__running
+        return self._running
 
     def start(self):
-        self.__running = True
-        self.__thread = Thread(target=self._start_listener, name=f"Kafka {self.__name} consumer listener")
-        self.__thread.start()
+        self._running = True
+        self._thread = Thread(target=self._start_listener, name=f"Kafka {self.__name} consumer listener")
+        self._thread.start()
         print(f"BackgroundRunner({self.__name}) started")
 
     def stop(self):
-        if self.__running:
-            self.__running = False
-            if self.__thread:
+        if self._running:
+            self._running = False
+            if self._thread:
                 print("Waiting for thread to stop")
-                self.__thread.join()
-            self.__thread = None
+                self._thread.join()
+            self._thread = None
 
     @abc.abstractmethod
     def _start_listener(self):
@@ -67,30 +67,32 @@ class BackgroundRunner(abc.ABC):
 
 
 class BackgroundConsumer(BackgroundRunner):
-    __topics = []
-    __group_suffix = None
-    bg_consumer = None
+    _topics = []
+    _group_suffix = None
+    _bg_consumer = None
     _consumer_name = None
+    _avro_deserializer = None
 
-    def __init__(self, topics: list[str], group_suffix, consumer_name):
-        super().__init__(consumer_name)
+    def __init__(self, topic: str, group_suffix, consumer_name):
+        super(BackgroundConsumer, self).__init__(consumer_name)
         self._consumer_name = consumer_name
-        self.__topics.append(topics)
-        self.__group_suffix = group_suffix
-        self.__service_account = os.getenv("SA_NAME")
-        self.__group_id = self.__service_account + '-' + self.__group_suffix
+        self._topics.append(topic)
+        self._group_suffix = group_suffix
+        self._service_account = os.getenv("SA_NAME")
+        self._group_id = self._service_account + '-' + self._group_suffix
 
-        self.__schema_registry_client = SchemaRegistryClient(self.__get_schema_registry_conf())
-        self.__avro_deserializer = AvroDeserializer(self.__schema_registry_client)
+        self._schema_registry_client = SchemaRegistryClient(self._get_schema_registry_conf())
+        self._avro_deserializer = AvroDeserializer(self._schema_registry_client)
 
 
         logging.info(f"Background Consumer {self._consumer_name} initialized")
 
     def start(self):
         if not self.is_running():
+            self._running=True
             print(f"Consumer {self._consumer_name} initializing")
-            self.bg_consumer = Consumer(self.__get_consumer_conf())
-            self.bg_consumer.subscribe(self.__topics)
+            self._bg_consumer = Consumer(self._get_consumer_conf())
+            self._bg_consumer.subscribe(self._topics)
             print(f"Consumer {self._consumer_name} starting")
             super().start()
             print(f"Consumer {self._consumer_name} started")
@@ -98,18 +100,18 @@ class BackgroundConsumer(BackgroundRunner):
     def stop(self):
         logging.info(f"Consumer {self._consumer_name} stopping")
         super().stop()
-        self.bg_consumer.unsubscribe()
-        self.bg_consumer.close()
-        self.bg_consumer = None
+        self._bg_consumer.unsubscribe()
+        self._bg_consumer.close()
+        self._bg_consumer = None
         logging.info(f"Consumer {self._consumer_name} stopped")
 
-    def __get_schema_registry_conf(self):
+    def _get_schema_registry_conf(self):
         return {
             'url': SR_URL,
             'basic.auth.user.info': SR_USERNAME + ":" + SR_PASSWORD,
         }
 
-    def __get_consumer_conf(self):
+    def _get_consumer_conf(self):
         return {
             "client.id": "svc-fit-app-" + socket.gethostname(),
             "bootstrap.servers": KAF_BOOTSTRAP,
@@ -118,45 +120,13 @@ class BackgroundConsumer(BackgroundRunner):
             "sasl.mechanism": "PLAIN",
             "sasl.username": KAF_KEY_USER,
             "sasl.password": KAF_KEY_PASS,
-            "group.id": self.__group_id,
+            "group.id": self._group_id,
         }
 
     def get_avro_deserializer(self):
-        return self.__avro_deserializer
-    # @abc.abstractmethod
-    # def _start_listener(self):
-    #     return
+        return self._avro_deserializer
 
+    @abc.abstractmethod
     def _start_listener(self):
-        logging.info(f">>> Consumer {self._consumer_name} started")
-        deserializer = self.get_avro_deserializer()
-        try:
-            while self.is_running():
-                print(self.bg_consumer)
-                msg = self.bg_consumer.poll(timeout=5.0)
-                if msg is None:
-                    continue
-                if msg.error():
-                    logging.info(f"Oops: {msg.error()}")
-                    if msg.error().code() == KafkaError._PARTITION_EOF:
-                        # End of partition event
-                        logging.error(
-                            f"{msg.topic()} {msg.partition()} {msg.offset()} reached end of partition {{msg.offset()}}")
-                    elif msg.error():
-                        logging.error(f">>> Consumer {self._consumer_name} broke: {msg.error()}")
-                        raise KafkaException(msg.error())
-                else:
-                    value = deserializer(msg.value(), SerializationContext(msg.topic(), MessageField.VALUE))
-                    # logging.info(str(msg.topic()) + ' : ' + str(value))
-                    logging.info(str(msg.topic()) + ' : ' + str(value))
-            logging.info(f">>> Consumer {self._consumer_name} stopped")
-        except KeyboardInterrupt:
-            print("broken !!!")
-        finally:
-            self.broken()
-
-    def broken(self):
-        logging.error(f">>> Consumer {self._consumer_name} broke")
-        self.__running = False
-        self.bg_consumer.close()
+        return
 

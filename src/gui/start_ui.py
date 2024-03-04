@@ -3,8 +3,8 @@ from datetime import datetime
 
 import gradio as gr
 
-from gui.gr_settings import gr_settings
-from gui.gr_utilities import gr_utilities
+from src.gui.gr_settings import gr_settings
+from src.gui.gr_utilities import gr_utilities
 
 
 class FspUi():
