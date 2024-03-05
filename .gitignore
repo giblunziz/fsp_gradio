@@ -50,4 +50,4 @@ org.eclipse.jdt.core.prefs
 auth.txt
 kafka_producer_config.json
 logs/**/*.log
-
+**/__pycache__/
